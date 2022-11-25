@@ -1,0 +1,36 @@
+{
+    "environment" : {
+        "protocol" : "http://",
+        
+        "baseUrl" : "localhost/practiques_backend/UF2/pt04_Sergi_Triado/",
+
+        "dir" : {
+            "modules" : {
+                "api" : {
+                    "article" : {
+                        "create" : "modules/api/article/create.php",
+                        "read" : "modules/api/article/read.php",
+                        "update" : "modules/api/article/update.php",
+                        "delete" : "modules/api/article/delete.php"
+                    },
+                    "usuari" : {
+                        "create" : "modules/api/usuari/create.php",
+                        "read" : "modules/api/usuari/read.php",
+                        "update" : "modules/api/usuari/update.php",
+                        "delete" : "modules/api/usuari/delete.php"
+                    }
+                }
+            },
+            "templates" : {
+                "login" : "templates/login/login.php",
+                "logout" : "templates/login/logout.php",
+                "signup" : "templates/login/signup.php",
+                "socials" : { 
+                    "steam" : "templates/login/socials/steam.php",
+                    "google" : "templates/login/socials/google.php"
+                },
+                "pwd_recover" : "templates/login/pwd_recover/pwd_recover.php"
+            }
+        }
+    }
+}
