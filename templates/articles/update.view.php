@@ -30,10 +30,22 @@
     ?>
 	<div class="contenidor">
 		<h1>Actualitzar article</h1>
-        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+        <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
             <input type="number" name="id" class="form-control w-auto" value="<?php echo $article->id ?>" readonly>
 			<textarea class="form-control" name='newArticle' rows='5' placeholder="Escriu un nou article"><?php echo $article->article ?></textarea><br>
-			<input class="btn btn-dark mb-4" type="submit" name="updateArticle" value="Actualitzar">
+			<label for="imatge">Selecciona una imatge existent a la galeria: </label>
+			<select class="form-control form-select" name="imatge" id="imatge">
+				<option value="">No afegir cap imatge</option>
+				<?php foreach($images as $image): ?>
+					<option value="<?php echo $image->id ?>"><?php echo pathinfo($image->path,PATHINFO_FILENAME) ?></option>
+				<?php endforeach;?>
+			</select>
+			<div class="my-3">
+				<label for="upload_img">O afegeix una nova: </label>
+				<input class="form-control" 
+							id="formFileSm" type="file" name="upload_img" accept="image/png, image/jpeg, image/jpg, image/gif">
+			</div>
+			<input class="btn btn-dark my-4" type="submit" name="updateArticle" value="Actualitzar">
 		</form>
 	</div>
 </body>

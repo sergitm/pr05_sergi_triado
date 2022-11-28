@@ -10,19 +10,61 @@ include "model/http.request.php";
 
 $http = new HttpRequest("environment/environment.json");
 $environment = $http->getEnvironment();
-
+$uploadOk = 0;
 // Si hi ha un article introduït per POST fem l'insert a la BBDD abans de mostrar els articles
 
 if(!empty($_POST['insertArticle']) && !empty($_POST['article'])){
+
+    // Comprovem que s'ha seleccionat un fitxer
+    if (!empty($_FILES['upload_img']['name'])) {
+        // Directori on s'enviarà l'imatge i extensió per comprovar
+        $target_dir = "public/assets/img/";
+        $target_file = $target_dir . basename($_FILES['upload_img']['name']);
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+        // Comprovem que és una imatge
+        if(!empty($_FILES['upload_img']['tmp_name'])){
+            $check = getimagesize($_FILES['upload_img']['tmp_name']);
+            
+            if ($check !== false) {
+                $uploadOk = 1;
+            } else {
+                $uploadOk = 0;
+                $errors['img']['fake'] = true;
+            }    
+        } else {
+            $uploadOk = 0;
+            $errors['img']['sizeLimit'] = true;
+        }
+
+        // Comprovem que el fitxer no existeixi ja
+        if (file_exists($target_file)) {
+            $errors['img']['repeated'] = true;
+            $uploadOk = 0;
+        }
+
+        // Comprovem que la imatge és del format que ens interessa
+        if ($imageFileType != 'jpg' && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+            $uploadOk = 0;
+            $errors['img']['formatNotAllowed'] = true;
+        } else {
+            $uploadOk = 1;
+        }
+    }
+
     $insertUrl = $environment->protocol . $environment->baseUrl . $environment->dir->modules->api->article->create;
 
     $article = $_POST['article'];
     $insertData = array('article' => $article, 'autor' => $_SESSION['username']);
 
+    if ($uploadOk != 0) {
+        $insertData['imatge'] = "public/assets/img/" . basename($_FILES['upload_img']['name']);
+    }
     $insertResult = $http->makePostRequest($insertUrl, $insertData);
 
     if ($insertResult != null) {
         if(isset($insertResult->success)){
+            move_uploaded_file($_FILES["upload_img"]["tmp_name"], $target_file);
             header("Location: " . $environment->protocol . $environment->baseUrl);
         } else {
             $insert = false;

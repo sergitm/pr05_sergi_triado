@@ -62,11 +62,11 @@
             if (isset($res->error)) {
                 print "<h1 class='text-danger' style='text-align:center'>" . $res->error . "</h1>";
             } else {
-                print "<h1 class='text-success' style='text-align:center'>" . $res->message . "</h1>";
-                
                 session_regenerate_id(true);
                 $_SESSION['username'] = ucwords(strtolower($res->username));
                 header("refresh:1;url=" . $environment->protocol . $environment->baseUrl);
+                
+                print "<h1 class='text-success' style='text-align:center'>" . $res->message . "</h1>";
             }
         } else {
             print "<h1 class='text-danger' style='text-align:center'>Hi ha hagut un error amb el registre</h1>";

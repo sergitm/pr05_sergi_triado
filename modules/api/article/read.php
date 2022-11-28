@@ -7,6 +7,8 @@
     require_once "../../config/database.php";
     require_once "../../control/llista_articles.php";
     require_once "../../../model/article.php";
+    require_once "../../control/image_manager.php";
+    require_once "../../../model/imatge.php";
     
     // $data = json_decode(file_get_contents("php://input"));
     
@@ -33,10 +35,13 @@
             );
         }
     }
-    if (isset($_POST['id'])) {
+    if (isset($_POST['id']) && isset($_POST['username'])) {
         $article = LlistaArticles::article_find($_POST['id']);
+        
+        ImageManager::read_all_images($_POST['username']);
+        $images = ImageManager::getImatges();
 
-        $result = array('article' => $article);
+        $result = array('article' => $article, 'images' => $images);
     }
 
     echo json_encode($result);

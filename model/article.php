@@ -10,12 +10,14 @@
         private $id;
         private $article;
         private $autor;
+        private $image;
 
         // CONSTRUCT
-        public function __construct($article, $autor, $id = null){
+        public function __construct($article, $autor, $id = null, $image = null){
             $this->article = $article;
             $this->autor = $autor;
             $this->id = $id;
+            $this->image = $image;
         }
 
         // GETTERS
@@ -28,6 +30,9 @@
         public function getId(){
             return $this->id;
         }
+        public function getImage(){
+            return $this->image;
+        }
 
         // SETTERS
         public function setArticle($article){
@@ -39,6 +44,9 @@
         public function setId($id){
             $this->id = $id;
         }
+        public function setImage($image){
+            $this->image = $image;
+        }
 
         // METHODS        
         /**
@@ -49,12 +57,13 @@
          * Métode per introduir un article a la BBDD
          */
         public function create(){
-            $query = "INSERT INTO articles (id, article, user)
-                        VALUES (:id, :article, :autor)";
+            $query = "INSERT INTO articles (id, article, user, imatge)
+                        VALUES (:id, :article, :autor, :imatge)";
 
             $params = array(':id' => $this->getId(),
                             ':article' => $this->getArticle(),
-                            ':autor' => strtoupper($this->getAutor()), 
+                            ':autor' => strtoupper($this->getAutor()),
+                            ':imatge' => $this->getImage()
             );
 
             Connexio::connect();
@@ -98,9 +107,9 @@
          * Métode per modificar un article de la BBDD
          */
         public function update(){
-            $query = "UPDATE articles SET user = :autor, article = :article WHERE id = :id";
+            $query = "UPDATE articles SET user = :autor, article = :article, imatge = :imatge WHERE id = :id";
 
-            $params = array(':autor' => $this->getAutor(), ':article' => $this->getArticle(), ':id' => $this->getId());
+            $params = array(':autor' => $this->getAutor(), ':article' => $this->getArticle(),':imatge' => $this->getImage(), ':id' => $this->getId());
 
             Connexio::connect();
             $stmt = Connexio::execute($query, $params);
@@ -124,6 +133,7 @@
             return [
                 'article' => $this->getArticle(),
                 'id' => $this->getId(),
+                'imatge' => $this->getImage(),
                 'autor' => $this->getAutor()
             ];
         }

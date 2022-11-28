@@ -11,7 +11,7 @@
     class Database {
         // DB Params
         private $host = 'localhost';
-        private $db_name = 'pt04_sergi_triado';
+        private $db_name = 'pt05_sergi_triado';
         private $username = 'root';
         private $pwd = '';
         private $conn;

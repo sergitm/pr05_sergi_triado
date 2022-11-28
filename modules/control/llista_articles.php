@@ -16,7 +16,7 @@
         public static function read_articles($offset, $row_count){
             self::$llista_articles = array();
 
-            $query = "SELECT a.id, a.article, u.username FROM articles a LEFT JOIN usuaris u ON a.user = u.id LIMIT :offset, :row_count";
+            $query = "SELECT a.id, a.article, u.username, i.path FROM articles a LEFT JOIN usuaris u ON a.user = u.id LEFT JOIN imatges i ON a.imatge = i.id LIMIT :offset, :row_count";
             $params = array(':offset' => $offset, ':row_count' => $row_count);
 
             Connexio::connect();
@@ -30,7 +30,7 @@
                 foreach ($result as $row) {
                     extract($row);
                     
-                    $article = new Article($row['article'], $row['username'], $row['id']);
+                    $article = new Article($row['article'], $row['username'], $row['id'],  $row['path']);
 
                     array_push(self::$llista_articles, $article);
                 }
@@ -41,7 +41,7 @@
         public static function read_articles_by_user($offset, $row_count, $username){
             self::$llista_articles = array();
 
-            $query = "SELECT a.id, a.article, u.username FROM articles a LEFT JOIN usuaris u ON a.user = u.id WHERE u.username = :username LIMIT :offset, :row_count";
+            $query = "SELECT a.id, a.article, u.username, i.path FROM articles a LEFT JOIN usuaris u ON a.user = u.id LEFT JOIN imatges i ON a.imatge = i.id WHERE u.username = :username LIMIT :offset, :row_count";
 
             Connexio::connect();
             $conn = Connexio::getConn();
@@ -61,7 +61,7 @@
                 foreach ($result as $row) {
                     extract($row);
                     
-                    $article = new Article($row['article'], $row['username'], $row['id']);
+                    $article = new Article($row['article'], $row['username'], $row['id'], $row['path']);
 
                     array_push(self::$llista_articles, $article);
                 }
@@ -116,10 +116,18 @@
             }
         }
 
-        public static function new_article($article, $autor){
+        public static function new_article($article, $autor, $imatge = null){
             $usuari = ControlUsuaris::get_usuari($autor);
 
             $article = new Article($article, $usuari->getId());
+
+            if ($imatge != null) {
+                $newImage = new Imatge($imatge,$usuari->getId());
+                $newImage->create();
+
+                $image_find = ImageManager::find_image_by_path($imatge);
+                $article->setImage($image_find->getId());
+            }
 
             return $article->create();
         }
@@ -133,11 +141,15 @@
             return $article->delete();
         }
 
-        public static function update_article($id, $newArticle){
+        public static function update_article($id, $newArticle, $image = null){
             $article = self::article_find($id);
 
             if ($article === null) {
                 return false;
+            }
+
+            if ($image !== null) {
+                $article->setImage($image);
             }
             
             $article->setArticle($newArticle);

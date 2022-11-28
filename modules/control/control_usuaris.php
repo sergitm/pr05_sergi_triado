@@ -70,7 +70,7 @@
         public static function get_usuari($identifier){
             $query = "SELECT * FROM usuaris WHERE (username = :id OR email = :id)";
             $params = array(
-                'id' => strtoupper($identifier)
+                ':id' => strtoupper($identifier)
             );
 
             Connexio::connect();
