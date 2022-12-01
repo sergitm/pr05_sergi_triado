@@ -74,6 +74,8 @@
             }
         }
 
+        // Petició per fer update
+        
         $url = $environment->protocol . $environment->baseUrl . $environment->dir->modules->api->article->update;
         $data = array('id' => $_POST['id'], 'article' => $_POST['newArticle']);
 

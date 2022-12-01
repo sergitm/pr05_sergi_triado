@@ -7,7 +7,13 @@
     require_once "http.request.php";
 
     class Validator{
-
+        /**
+         * Username Exists
+         *
+         * @return boolean
+         * 
+         * Métode que envia una petició al backend per comprovar a la BBDD si el nom d'usuari ja existeix
+         */
         public static function usernameExists($username, $up = "../../"){
             $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
@@ -22,6 +28,13 @@
             }
         }
 
+        /**
+         * Email Exists
+         *
+         * @return boolean
+         * 
+         * Métode que envia una petició al backend per comprovar a la BBDD si l'email ja existeix
+         */
         public static function emailExists($email, $up = "../../"){
             $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
@@ -36,6 +49,13 @@
             }
         }
 
+        /**
+         * Auth
+         *
+         * @return boolean
+         * 
+         * Métode que realitza la autenticació i crea una sessió si el login es exitós
+         */
         public static function auth($id, $pwd, $up = "../../"){
             $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
@@ -70,6 +90,13 @@
             }
         }
 
+        /**
+         * User Exists
+         *
+         * @return boolean
+         * 
+         * Métode que envia una petició al backend per comprovar que un usuari existeix a la BBDD
+         */
         public static function userExist($identifier, $up = "../../../"){
             $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();

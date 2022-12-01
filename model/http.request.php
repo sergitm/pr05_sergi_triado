@@ -19,7 +19,13 @@
             return $this->environment;
         }
         
-
+        /**
+         * Make Get Request
+         *
+         * @return resultat
+         * 
+         * Métode per fer peticions HTTP GET
+         */
         public function makeGetRequest($url, $values = null){ 
             $params = "";
 
@@ -44,7 +50,13 @@
 
             return $result;
         }
-
+        /**
+         * Make Post Request
+         *
+         * @return resultat
+         * 
+         * Métode per fer peticions HTTP POST
+         */
         public function makePostRequest($url, $data){
 
             $options = array(

@@ -12,6 +12,13 @@ class ImageManager {
         return self::$llista_imatges;
     }
 
+    /**
+     * Upload Image
+     *
+     * @return boolean
+     * 
+     * Métode que crea una nova imatge a la BBDD
+     */
     public static function upload_image($path, $username){
         $user = ControlUsuaris::get_usuari($username);
 
@@ -20,6 +27,13 @@ class ImageManager {
         return $imatge->create();
     }
 
+    /**
+    * Read Images
+    *
+    * @return array
+    * 
+    * Métode que llegeix totes les imatges amb paginació
+    */
     public static function read_images($offset, $row_count){
         self::$llista_imatges = array();
 
@@ -45,6 +59,13 @@ class ImageManager {
         Connexio::close();
     }
 
+    /**
+    * Read images by user
+    *
+    * @return array
+    * 
+    * Métode que llegeix totes les imatges d'un usuari amb paginació
+    */
     public static function read_images_by_user($offset, $row_count, $username){
         self::$llista_imatges = array();
 
@@ -74,7 +95,14 @@ class ImageManager {
         }
         Connexio::close();
     }
-
+    
+    /**
+    * Read Images
+    *
+    * @return array
+    * 
+    * Métode que llegeix totes les imatges
+    */
     public static function read_all_images($username){
         self::$llista_imatges = array();
 
@@ -100,6 +128,13 @@ class ImageManager {
         }
     }
 
+    /**
+    * Image Count
+    *
+    * @return int
+    * 
+    * Métode que llegeix el número total d'imatges
+    */
     public static function image_count(){
         $query = "SELECT COUNT(id) AS quantitat FROM imatges";
 
@@ -110,6 +145,13 @@ class ImageManager {
         return intval($count['quantitat']);
     }
 
+    /**
+    * Image Count by user
+    *
+    * @return int
+    * 
+    * Métode que llegeix el número total d'imatges d'un usuari
+    */
     public static function image_count_by_user($username){
         $query = "SELECT COUNT(i.id) AS quantitat FROM imatges i LEFT JOIN usuaris u ON i.user = u.id WHERE u.username = :username";
 
@@ -122,6 +164,13 @@ class ImageManager {
         return intval($count['quantitat']);
     }
 
+    /**
+    * Find Image
+    *
+    * @return Imatge
+    * 
+    * Métode que llegeix una imatge per ID i la retorna
+    */
     public static function find_image($id){
         $query = "SELECT * FROM imatges WHERE id = :id";
         $params = array(':id' => $id);
@@ -147,6 +196,13 @@ class ImageManager {
         }
     }
 
+    /**
+    * Find image by path
+    *
+    * @return Imatge
+    * 
+    * Métode que llegeix una imatge pel path i la retorna
+    */
     public static function find_image_by_path($path){
         $query = "SELECT * FROM imatges WHERE path = :path";
         $params = array(':path' => $path);
@@ -172,6 +228,13 @@ class ImageManager {
         }
     }
 
+    /**
+    * Delete Image
+    *
+    * @return array
+    * 
+    * Métode que elimina una imatge
+    */
     public static function delete_image($id){
         $imatge = self::find_image($id);
 
@@ -186,6 +249,13 @@ class ImageManager {
         }
     }
 
+    /**
+    * Update Image
+    *
+    * @return resultat
+    * 
+    * Métode que fa un update d'una imatge
+    */
     public static function update_image($id, $newPath){
         $imatge = self::find_image($id);
 

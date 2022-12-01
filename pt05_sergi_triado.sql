@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-12-2022 a las 00:53:49
+-- Tiempo de generación: 01-12-2022 a las 14:50:22
 -- Versión del servidor: 5.7.36
 -- Versión de PHP: 7.4.26
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `imatges` (
   `user` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `imatges_ibfk_1` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `imatges`
@@ -118,8 +118,8 @@ CREATE TABLE IF NOT EXISTS `usuaris` (
 --
 
 INSERT INTO `usuaris` (`id`, `username`, `password`, `email`, `avatar`) VALUES
-(4, 'PEP', '$2y$10$TUu7fBSnNS3JvEciej9gjeNlGYo3LVUUpGBd8mUu1Zu42CiwG0T/G', 'QWEQWE@QWEQWE.COM', NULL),
-(7, 'SERGI', '$2y$10$9GSqMuDMBvdSwf3Cr2gHmuPEofJWrD.D/DLZA7BFcOR36gM.F9XfS', 'S.TRIADO@SAPALOMERA.CAT', NULL),
+(4, 'PEP', '$2y$10$NKGpPHp5Z71VKGF0XuA3der8knUSkuI6WkMf4EdEDZl4lK0bczl96', 'RERE@EXAMPLE.CAT', NULL),
+(7, 'SERGI', '$2y$10$1Pc1Pu3DO0lkdz.hrBXARek7iWw6gx2Vp91mq/SsFMICGSI.yxFF6', 'AA@AAQ.NET', NULL),
 (8, 'JOAN', '$2y$10$zXDrDF/wsyRg7AIo.OtuoObQn7B5Lmbt34ps8fY4J5hh.RLMLE7sS', 'ASAS@ASDF.COM', NULL),
 (9, 'FRAN', '$2y$10$32GEUapMsDDxupM.gqdKd.Nn7FSLr0zuepGKFCDh4O.maRpgh6NYm', 'REW@REW.CAT', NULL);
 

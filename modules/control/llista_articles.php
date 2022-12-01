@@ -13,6 +13,13 @@
             return self::$llista_articles;
         }
 
+        /**
+        * Read articles
+        *
+        * @return array
+        * 
+        * Métode que llegeix els articles amb paginació
+        */
         public static function read_articles($offset, $row_count){
             self::$llista_articles = array();
 
@@ -38,6 +45,13 @@
             Connexio::close();
         }
 
+        /**
+        * Read articles by user
+        *
+        * @return array
+        * 
+        * Métode que llegeix els articles d'un usuari amb paginació
+        */
         public static function read_articles_by_user($offset, $row_count, $username){
             self::$llista_articles = array();
 
@@ -69,6 +83,13 @@
             Connexio::close();
         }
 
+        /**
+        * Article count
+        *
+        * @return int
+        * 
+        * Métode que llegeix el número total d'articles
+        */
         public static function articles_count(){
             $query = "SELECT COUNT(id) AS quantitat FROM articles";
 
@@ -79,6 +100,13 @@
             return intval($count['quantitat']);
         }
 
+        /**
+        * Article count by user
+        *
+        * @return int
+        * 
+        * Métode que llegeix el número total d'articles per usuari
+        */
         public static function articles_count_by_user($username){
             $query = "SELECT COUNT(a.id) AS quantitat FROM articles a LEFT JOIN usuaris u ON a.user = u.id WHERE u.username = :username";
 
@@ -91,6 +119,13 @@
             return intval($count['quantitat']);
         }
 
+        /**
+        * Article Find
+        *
+        * @return Article
+        * 
+        * Métode que llegeix un article per id
+        */
         public static function article_find($id){
             $query = "SELECT * FROM articles WHERE id = :id";
             $params = array(':id' => $id);
@@ -116,6 +151,13 @@
             }
         }
 
+        /**
+        * New Article
+        *
+        * @return result
+        * 
+        * Métode que crea un nou article
+        */        
         public static function new_article($article, $autor, $imatge = null){
             $usuari = ControlUsuaris::get_usuari($autor);
 
@@ -132,6 +174,13 @@
             return $article->create();
         }
 
+        /**
+        * Delete Article
+        *
+        * @return result
+        * 
+        * Métode que elimina un article per ID
+        */
         public static function delete_article($id){
             $article = self::article_find($id);
 
@@ -141,6 +190,13 @@
             return $article->delete();
         }
 
+        /**
+        * Update Article
+        *
+        * @return result
+        * 
+        * Métode que fa l'update d'un article si no escull imatge o escull una que ja existeix
+        */
         public static function update_article($id, $newArticle, $image = null){
             $article = self::article_find($id);
 
@@ -156,6 +212,13 @@
             return $article->update();
         }
 
+        /**
+        * Update Article New Image
+        *
+        * @return result
+        * 
+        * Métode que fa l'update d'un article creant una nova imatge
+        */
         public static function update_article_new_image($id, $newArticle, $image = null){
             $article = self::article_find($id);
 

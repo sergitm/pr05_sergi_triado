@@ -1,4 +1,9 @@
 <?php
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+*
+*/
 session_start();
 include "../../../model/http.request.php";
 

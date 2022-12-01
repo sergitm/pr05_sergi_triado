@@ -1,4 +1,9 @@
 <?php
+/**
+*
+* @author: Sergi Triadó <s.triado@sapalomera.cat>
+*
+*/
     session_start();
 
     $errors = array();
@@ -24,6 +29,7 @@
 
     include "file_manager.view.php";
 
+    // Submit 
     if (empty($errors) && !empty($_POST['modificar'])) {
         $all_files = scandir($_POST['path']);
         if(substr($_POST['path'], -1) === '/' || substr($_POST['path'], -1) === '\\'){

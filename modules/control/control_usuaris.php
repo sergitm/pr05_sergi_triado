@@ -8,10 +8,18 @@
     class ControlUsuaris {
         private static $llista_usuaris;
 
+        // GETTER
         public static function getUsuaris(){
             return self::$llista_usuaris;
         }
 
+        /**
+         * User Exists
+         *
+         * @return boolean
+         * 
+         * Métode per comprovar a la BBDD si un usuari existeix per username
+         */
         public static function user_exists($username){
             $query = "SELECT * FROM usuaris WHERE username = :username";
 
@@ -30,6 +38,13 @@
             }
         }
 
+        /**
+         * Email Exists
+         *
+         * @return boolean
+         * 
+         * Métode per comprovar a la BBDD si un email existeix
+         */
         public static function email_exists($email){
             $query = "SELECT * FROM usuaris WHERE email = :email";
 
@@ -48,6 +63,13 @@
             }
         }
 
+        /**
+         * Auth
+         *
+         * @return boolean
+         * 
+         * Métode que realitza l'autenticació
+         */
         public static function user_auth($id, $pwd){
             $query = "SELECT * FROM usuaris WHERE (username = :id OR email = :id) AND password = :pwd";
 
@@ -67,6 +89,13 @@
             }
         }
 
+        /**
+         * Get Usuari
+         *
+         * @return Usuari
+         * 
+         * Métode que fa la lectura d'un usuari per username o email
+         */
         public static function get_usuari($identifier){
             $query = "SELECT u.id, u.username, u.password, u.email, i.path FROM usuaris u LEFT JOIN imatges i ON u.avatar = i.id WHERE (u.username = :id OR u.email = :id)";
             $params = array(
@@ -94,6 +123,13 @@
             }
         }
 
+        /**
+         * Get Usuari per ID
+         *
+         * @return Usuari
+         * 
+         * Métode que fa la lectura d'un usuari per ID
+         */
         public static function get_usuari_by_id($id){
             $query = "SELECT * FROM usuaris WHERE id = :id";
             $params = array(
@@ -121,6 +157,13 @@
             }
         }
 
+        /**
+         * Password update
+         *
+         * @return boolean
+         * 
+         * Métode que fa l'update de la contrasenya
+         */
         public static function password_update($username, $pwd){
             $usuari = self::get_usuari($username);
 
@@ -133,6 +176,13 @@
             return $usuari->update();
         }
 
+        /**
+         * Update user create avatar
+         *
+         * @return boolean
+         * 
+         * Métode que fa un update d'un usuari quan crea un avatar nou
+         */
         public static function update_user_create_avatar($id, $username, $email, $avatar = null){
             $usuari = self::get_usuari_by_id($id);
 
@@ -156,6 +206,13 @@
             return $usuari->update();
         }
 
+        /**
+         * Update User
+         *
+         * @return boolean
+         * 
+         * Métode que fa l'update d'un usuari quan no esculleix avatar o escull un que ja existeix
+         */
         public static function update_user($id, $username, $email, $avatar = null){
             $usuari = self::get_usuari_by_id($id);
 
@@ -175,6 +232,13 @@
             return $usuari->update();
         }
 
+        /**
+         * Delete User
+         *
+         * @return boolean
+         * 
+         * Métode que elimina un usuari per ID
+         */
         public static function delete_user($id){
             $usuari = self::get_usuari_by_id($id);
 
