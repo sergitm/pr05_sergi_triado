@@ -11,13 +11,15 @@
         private $username;
         private $email;
         private $pwd;
+        private $avatar;
 
         // CONSTRUCTOR
-        public function __construct($username, $pwd, $email, $id = null){
+        public function __construct($username, $pwd, $email, $id = null, $avatar = null){
             $this->id = $id;
             $this->username = $username;
             $this->email = $email;
             $this->pwd = $pwd;
+            $this->avatar = $avatar;
         }
 
         // GETTERS
@@ -33,6 +35,9 @@
         public function getPwd(){
             return $this->pwd;
         }
+        public function getAvatar(){
+            return $this->avatar;
+        }
 
         // SETTERS
         public function setId($id){
@@ -46,6 +51,9 @@
         }
         public function setEmail($email){
             $this->email = $email;
+        }
+        public function setAvatar($avatar){
+            $this->avatar = $avatar;
         }
 
         // METHODS
@@ -103,9 +111,13 @@
          * Métode per modificar un usuari de la BBDD
          */
         public function update(){
-            $query = "UPDATE usuaris SET username = :username, password = :pwd, email = :email WHERE id = :id";
+            $query = "UPDATE usuaris SET username = :username, password = :pwd, email = :email, avatar = :avatar WHERE id = :id";
 
-            $params = array(':username' => strtoupper($this->getUsername()), ':pwd' => $this->getPwd(), ':email' => strtoupper($this->getEmail()), ':id' => $this->getId());
+            $params = array(':username' => strtoupper($this->getUsername()), 
+                            ':pwd' => $this->getPwd(), 
+                            ':email' => strtoupper($this->getEmail()),
+                            ':avatar' => $this->getAvatar(), 
+                            ':id' => $this->getId());
 
             Connexio::connect();
             $stmt = Connexio::execute($query, $params);
@@ -131,6 +143,7 @@
                 'username' => $this->getUsername(),
                 'pwd' => $this->getPwd(),
                 'email' => $this->getEmail(),
+                'avatar' => $this->getAvatar(),
                 'id' => $this->getId()
             ];
         }

@@ -155,5 +155,23 @@
             $article->setArticle($newArticle);
             return $article->update();
         }
+
+        public static function update_article_new_image($id, $newArticle, $image = null){
+            $article = self::article_find($id);
+
+            if ($article === null) {
+                return false;
+            }
+
+            if ($image !== null) {
+                $newImage = new Imatge($image, $article->getAutor());
+                $newImage->create();
+                $image_find = ImageManager::find_image_by_path($image);
+                $article->setImage($image_find->getId());
+            }
+            
+            $article->setArticle($newArticle);
+            return $article->update();
+        }
     }
 ?>

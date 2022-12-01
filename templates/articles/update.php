@@ -85,7 +85,6 @@
             unset($data['imatge']);
             $data['newImatge'] = "public/assets/img/" . basename($_FILES['upload_img']['name']);
         }
-        
         $result = $http->makePostRequest($url, $data);
         
         if ($result != null && isset($result->success)) {

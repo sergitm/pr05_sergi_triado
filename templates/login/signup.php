@@ -43,8 +43,6 @@
         }
     }
 
-    include "signup.view.php";
-    
     if(!empty($_POST['registrar']) && empty($errors)){
         $http = new HttpRequest("../../environment/environment.json");
         $environment = $http->getEnvironment();
@@ -72,5 +70,7 @@
             print "<h1 class='text-danger' style='text-align:center'>Hi ha hagut un error amb el registre</h1>";
         }
     }
+
+    include "signup.view.php";
 ?>
 

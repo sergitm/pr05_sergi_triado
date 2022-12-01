@@ -12,7 +12,9 @@
 
     require_once "../../config/database.php";
     require_once "../../../model/user.php";
+    require_once "../../../model/imatge.php";
     require_once "../../control/control_usuaris.php";
+    require_once "../../control/image_manager.php";
 
     if (!empty($_POST['check'])) {
         if (!empty($_POST['username'])) {
@@ -35,6 +37,13 @@
                     'missatge' => "L'usuari no existeix"
                 );
             }
+        }
+        if (!empty($_POST['imatges'])) {
+            ImageManager::read_all_images($_POST['identifier']);
+
+            $llista_imatges = ImageManager::getImatges();
+
+            $res['imatges'] = $llista_imatges;
         }
     }
 

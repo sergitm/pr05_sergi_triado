@@ -19,6 +19,7 @@
                 $result = $http->makePostRequest($url, $data);
 
                 if ($result != null && isset($result->success)) {
+                    unlink("../../" . $result->path);
                     header("Location: " . $environment->protocol . $environment->baseUrl . "templates/gallery/gallery.php");
                 } else {
                     print "<h1 class='text-danger' style='text-align:center'>Hi ha hagut un error al eliminar</h1>";

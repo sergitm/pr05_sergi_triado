@@ -25,7 +25,27 @@
     include "file_manager.view.php";
 
     if (empty($errors) && !empty($_POST['modificar'])) {
-        
+        $all_files = scandir($_POST['path']);
+        if(substr($_POST['path'], -1) === '/' || substr($_POST['path'], -1) === '\\'){
+            $path = $_POST['path'];
+        } else {
+            $path = $_POST['path'] . '/';
+        }
+        $i = 0;
+        foreach ($all_files as $file) {
+            if (preg_match('/(' . $_POST['nom'] . ')/', $file)) {
+                $nouNom = preg_replace('/(' . $_POST['nom'] . ')/', $_POST['newNom'], $file);
+                rename($path . $file, $path . $nouNom);
+                $i++;
+            }
+        }
+        if ($i > 0) {
+            print "<p class='text-success d-flex justify-content-center my-2 fw-bold'>S'han modificat " . $i . " fitxers.</p>";
+        } else {
+            print "<p class='text-danger d-flex justify-content-center my-2 fw-bold'>No s'ha trobat cap fitxer per canviar.</p>";
+        }
     }
+
+    (isset($_SESSION['username'])) ? '' : header("Location: " . $environment->protocol . $environment->baseUrl);
 
 ?>

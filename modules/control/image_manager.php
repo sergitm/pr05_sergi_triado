@@ -179,7 +179,11 @@ class ImageManager {
             return false;
         }
 
-        return $imatge->delete();
+        if ($imatge->delete()) {
+            return array('success' => true, 'path' => $imatge->getPath());
+        } else {
+            return array('error' => true);
+        }
     }
 
     public static function update_image($id, $newPath){

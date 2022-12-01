@@ -32,7 +32,7 @@
         <div class="form-inline justify-content-center">
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
             
-                <!-- Primer camp -->
+                <!-- Primer camp text a reemplaçar -->
                 <label for="nom">Què vols canviar?</label>
                 <input type="text" name="nom" class="form-control" value="<?php echo $_POST['nom'] ?? '' ?>">
 
@@ -40,7 +40,7 @@
                     <small class="text-danger">Camp obligatori</small>
                 <?php endif;?>
 
-                <!-- Segon camp -->
+                <!-- Segon camp text de reemplaç -->
                 <label for="newNom">Per a què ho vols canviar?</label>
                 <input type="text" name="newNom" class="form-control" value="<?php echo $_POST['newNom'] ?? '' ?>">
 
@@ -48,7 +48,7 @@
                     <small class="text-danger">Camp obligatori</small>
                 <?php endif;?>
 
-                <!-- Tercer camp -->
+                <!-- Tercer camp Path -->
                 <label for="path">A quina localització ho vols canviar? <br> (Ex. C:/Users/pepito/Documents/ )</label>
                 <input type="text" name="path" class="form-control" value="<?php echo $_POST['path'] ?? '' ?>">
 

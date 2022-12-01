@@ -8,8 +8,8 @@
 
     class Validator{
 
-        public static function usernameExists($username){
-            $http = new HttpRequest("../../environment/environment.json");
+        public static function usernameExists($username, $up = "../../"){
+            $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
 
             $url = $environment->protocol . $environment->baseUrl . $environment->dir->modules->api->usuari->read;
@@ -22,8 +22,8 @@
             }
         }
 
-        public static function emailExists($email){
-            $http = new HttpRequest("../../environment/environment.json");
+        public static function emailExists($email, $up = "../../"){
+            $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
 
             $url = $environment->protocol . $environment->baseUrl . $environment->dir->modules->api->usuari->read;
@@ -36,8 +36,8 @@
             }
         }
 
-        public static function auth($id, $pwd){
-            $http = new HttpRequest("../../environment/environment.json");
+        public static function auth($id, $pwd, $up = "../../"){
+            $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
             $url = $environment->protocol . $environment->baseUrl . $environment->dir->modules->api->usuari->read;
 
@@ -70,8 +70,8 @@
             }
         }
 
-        public static function userExist($identifier){
-            $http = new HttpRequest("../../../environment/environment.json");
+        public static function userExist($identifier, $up = "../../../"){
+            $http = new HttpRequest($up . "environment/environment.json");
             $environment = $http->getEnvironment();
             $url = $environment->protocol . $environment->baseUrl . $environment->dir->modules->api->usuari->read;
 
